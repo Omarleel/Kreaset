@@ -11,7 +11,7 @@ Kreaset es una aplicación de procesamiento de audio desarrollada por Cliver Oma
 - scipy
 - noisereduce
 - pyAudioAnalysis
-- spleeter
+- [Spleeter](https://github.com/deezer/spleeter)
 
 ## Descripción general del programa
 Kreaset proporciona una interfaz gráfica de usuario (GUI) para facilitar el procesamiento y análisis de archivos de audio en formato MP3, WAV o WMA. El programa cuenta con diversas técnicas de procesamiento de audio, como la extracción de voz, la supresión de ruido y la eliminación de silencios, que pueden aplicarse a los archivos de audio seleccionados. Además, Kreaset tiene la capacidad de combinar varios archivos de audio en uno solo y dividir un archivo de audio grande en segmentos más pequeños para la creación de un dataset.

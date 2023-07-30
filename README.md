@@ -1,7 +1,7 @@
 # Kreaset - Documentación del programa
 
 ## Introducción
-Kreaset es una aplicación de procesamiento de audio desarrollada por Cliver Omar Flores Pacheco. Su objetivo es facilitar la generación de datasets de audio para tareas de procesamiento y análisis de señales de sonido.
+Kreaset es una aplicación de procesamiento de audio desarrollada por mi persona y con la ayuda de otras herramientas. Su objetivo es facilitar la generación de datasets de audio para tareas de procesamiento y análisis de señales de sonido.
 
 ## Requisitos
 - FFmpeg

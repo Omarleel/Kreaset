@@ -27,7 +27,7 @@ La interfaz de usuario de Kreaset se compone de los siguientes elementos:
 
 4. Etiqueta de "Archivos de audio": Muestra la cantidad total de archivos de audio encontrados en el directorio seleccionado.
 
-5. Etiqueta de "Duración entrada": Muestra la duración total de los archivos de audio seleccionados en formato horas:minutos:segundos.
+5. Etiqueta de "Duración entrada": Muestra la duración total de los archivos de audio seleccionados en formato horas, minutos y segundos.
 
 6. Etiqueta de "Suprimir ruido": Permite seleccionar si se desea aplicar la técnica de supresión de ruido a los archivos de audio.
 
@@ -47,7 +47,7 @@ La interfaz de usuario de Kreaset se compone de los siguientes elementos:
 
 14. Barra de progreso: Representa visualmente el progreso del procesamiento de los archivos de audio.
 
-15. Etiqueta de "Duración salida": Muestra la duración total de los archivos de audio procesados (después de aplicar las técnicas) en formato horas:minutos:segundos.
+15. Etiqueta de "Duración salida": Muestra la duración total de los archivos de audio procesados (después de aplicar las técnicas) en formato horas, minutos y segundos.
 
 ## Procesamiento de audio
 Kreaset permite realizar las siguientes técnicas de procesamiento de audio:

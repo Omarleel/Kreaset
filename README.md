@@ -86,3 +86,12 @@ El proceso de procesamiento de audio se realiza en segundo plano utilizando hilo
 
 ## Conclusión
 Kreaset es una herramienta útil para el procesamiento y análisis de archivos de audio, especialmente cuando se trabaja con datasets grandes o se requiere la aplicación de técnicas específicas para la preparación de los datos. La interfaz de usuario facilita el uso del programa y permite a los usuarios procesar archivos de audio de manera eficiente y efectiva.
+
+## Pruebas
+Para correr el programa, puedes ejecutar el siguiente conjunto de comandos:
+```
+# Clonar el repositorio
+git clone https://github.com/Omarleel/Kreaset && cd Kreaset
+# Ejecutar el script
+py kreaset.py
+``` 

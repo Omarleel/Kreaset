@@ -38,7 +38,7 @@ class AudioProcessing():
                     audios_seleccionados += audio
             duracion_total_ms += len(audio)
 
-        # Convertir la duración total a formato horas:minutos:segundos
+        # Convertir la duración total a formato horas, minutos y segundos
         segundos_totales = duracion_total_ms / 1000
         duracion_segundos = float(round(segundos_totales))
         horas = int(segundos_totales // 3600)

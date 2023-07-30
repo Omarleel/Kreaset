@@ -20,34 +20,22 @@ Kreaset proporciona una interfaz gráfica de usuario (GUI) para facilitar el pro
 La interfaz de usuario de Kreaset se compone de los siguientes elementos:
 
 1. Etiqueta de "Directorio del dataset": Muestra un mensaje indicando que se debe seleccionar un directorio que contenga los archivos de audio para procesar.
-
 2. Cuadro de texto "Ruta de la carpeta": Muestra la ruta del directorio seleccionado que contiene los archivos de audio.
-
 3. Botón "Seleccionar": Permite seleccionar el directorio que contiene los archivos de audio a procesar.
-
 4. Etiqueta de "Archivos de audio": Muestra la cantidad total de archivos de audio encontrados en el directorio seleccionado.
-
 5. Etiqueta de "Duración entrada": Muestra la duración total de los archivos de audio seleccionados en formato horas, minutos y segundos.
-
 6. Etiqueta de "Suprimir ruido": Permite seleccionar si se desea aplicar la técnica de supresión de ruido a los archivos de audio.
-
 7. Cuadro desplegable "Si/No": Permite seleccionar "Si" o "No" para activar o desactivar la técnica de supresión de ruido, respectivamente.
-
 8. Etiqueta de "Extraer voz": Permite seleccionar si se desea aplicar la técnica de extracción de voz a los archivos de audio.
-
 9. Cuadro desplegable "Si/No": Permite seleccionar "Si" o "No" para activar o desactivar la técnica de extracción de voz, respectivamente.
-
 10. Etiqueta de "Remover silencio": Permite seleccionar el nivel de tolerancia para eliminar silencios en los archivos de audio.
-
 11. Cuadro desplegable "Alta tolerancia/Baja tolerancia": Permite seleccionar el nivel de tolerancia para eliminar silencios, ya sea alta o baja.
-
 12. Botón "Generar dataset": Inicia el procesamiento de los archivos de audio seleccionados con las técnicas elegidas.
-
 13. Etiqueta de progreso: Muestra el estado actual del procesamiento, como "Sin procesar" o "Completado".
-
 14. Barra de progreso: Representa visualmente el progreso del procesamiento de los archivos de audio.
-
 15. Etiqueta de "Duración salida": Muestra la duración total de los archivos de audio procesados (después de aplicar las técnicas) en formato horas, minutos y segundos.
+
+![Interfaz gráfica del programa](https://raw.githubusercontent.com/Omarleel/Kreaset/main/Assets/interfaz_grafica.jpg)
 
 ## Procesamiento de audio
 Kreaset permite realizar las siguientes técnicas de procesamiento de audio:
@@ -83,8 +71,6 @@ El proceso de procesamiento de audio se realiza en segundo plano utilizando hilo
 5. Haga clic en el botón "Generar dataset" para iniciar el procesamiento de los archivos de audio con las técnicas seleccionadas.
 6. El progreso del procesamiento se muestra en la etiqueta y la barra de progreso.
 7. Una vez completado el procesamiento, se mostrará la etiqueta "Completado" y la duración total de los archivos de audio procesados en la etiqueta "Duración salida".
-
-![Interfaz gráfica del programa](https://raw.githubusercontent.com/Omarleel/Kreaset/main/Assets/interfaz_grafica.jpg)
 
 ## Conclusión
 Kreaset es una herramienta útil para el procesamiento y análisis de archivos de audio, especialmente cuando se trabaja con datasets grandes o se requiere la aplicación de técnicas específicas para la preparación de los datos. La interfaz de usuario facilita el uso del programa y permite a los usuarios procesar archivos de audio de manera eficiente y efectiva.

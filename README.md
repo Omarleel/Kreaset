@@ -83,6 +83,7 @@ El proceso de procesamiento de audio se realiza en segundo plano utilizando hilo
 5. Haga clic en el botón "Generar dataset" para iniciar el procesamiento de los archivos de audio con las técnicas seleccionadas.
 6. El progreso del procesamiento se muestra en la etiqueta y la barra de progreso.
 7. Una vez completado el procesamiento, se mostrará la etiqueta "Completado" y la duración total de los archivos de audio procesados en la etiqueta "Duración salida".
+
 ![Interfaz gráfica del programa](https://raw.githubusercontent.com/Omarleel/Kreaset/main/Assets/interfaz_grafica.jpg)
 
 ## Conclusión

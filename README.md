@@ -90,8 +90,9 @@ Kreaset es una herramienta útil para el procesamiento y análisis de archivos d
 ## Pruebas
 Para correr el programa, puedes ejecutar el siguiente conjunto de comandos:
 ```bash
-# Clonar el repositorio
-git clone https://github.com/Omarleel/Kreaset && cd Kreaset
+# Clonar el repositorio y acceder a la carpeta del programa
+git clone https://github.com/Omarleel/Kreaset
+cd Kreaset
 # Ejecutar el script
 py kreaset.py
 

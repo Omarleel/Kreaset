@@ -82,9 +82,7 @@ El proceso de procesamiento de audio se realiza en segundo plano utilizando hilo
 4. Seleccione las técnicas de procesamiento de audio que desee aplicar utilizando los cuadros desplegables.
 5. Haga clic en el botón "Generar dataset" para iniciar el procesamiento de los archivos de audio con las técnicas seleccionadas.
 6. El progreso del procesamiento se muestra en la etiqueta y la barra de progreso.
-7. Una vez completado el procesamiento
-
-, se mostrará la etiqueta "Completado" y la duración total de los archivos de audio procesados en la etiqueta "Duración salida".
+7. Una vez completado el procesamiento, se mostrará la etiqueta "Completado" y la duración total de los archivos de audio procesados en la etiqueta "Duración salida".
 
 ## Conclusión
 Kreaset es una herramienta útil para el procesamiento y análisis de archivos de audio, especialmente cuando se trabaja con datasets grandes o se requiere la aplicación de técnicas específicas para la preparación de los datos. La interfaz de usuario facilita el uso del programa y permite a los usuarios procesar archivos de audio de manera eficiente y efectiva.

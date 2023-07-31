@@ -36,14 +36,14 @@ class AudioProcessing():
                 
             duracion_total_ms += len(audio)
 
-        # Convertir la duración total a formato horas, minutos y segundos
         segundos_totales = duracion_total_ms / 1000
-        self.duracion_segundos = float(round(segundos_totales))
+        if lbl_duracion == self.app_window.etiqueta_duracion_entrada_audios:
+            self.duracion_segundos = float(round(segundos_totales))
         horas = int(segundos_totales // 3600)
         segundos_totales %= 3600
         minutos = int(segundos_totales // 60)
         segundos = int(segundos_totales % 60)
-        # Actualizar la etiqueta con la duración total de los audios
+
         if horas > 0:
             lbl_duracion.setText(f"{horas} horas, {minutos} minutos y {segundos} segundos")
         else:
@@ -98,17 +98,17 @@ class AudioProcessing():
 
         fs, audio = aIO.read_audio_file(self.ruta_audio_procesar)
         segments = aS.silence_removal(audio, fs, 0.020, 0.020, smooth_window=0.5, weight=0.6, plot=False)
-
+       
         audio_combinado = AudioSegment.empty()
 
         for segment in segments:
             start, end = segment
             audio_segment = audio[int(start * fs):int(end * fs)]
-
             bytes_io = io.BytesIO()
             wavfile.write(bytes_io, fs, audio_segment)
             bytes_io.seek(0)
             audio_segment = AudioSegment.from_file(bytes_io, format="wav")
+
             audio_combinado += audio_segment
 
         ruta_audio_sin_silencios = os.path.join(ruta_outputs, "audio_combinado_sin_silencios.wav")
@@ -158,14 +158,14 @@ class AudioProcessing():
             os.makedirs(ruta_dataset)   
         
         audio = AudioSegment.from_wav(self.ruta_audio_procesar)
-        duracion_maxima_ms = duracion_maxima      
-        duracion_total_ms = len(audio)   
+        duracion_maxima_ms = duracion_maxima
+        duracion_total_ms = len(audio)
         num_segmentos = (duracion_total_ms + duracion_maxima_ms - 1) // duracion_maxima_ms
         
         for i in range(num_segmentos):
             inicio_ms = i * duracion_maxima_ms
             fin_ms = min((i + 1) * duracion_maxima_ms, duracion_total_ms)
-            segmento = audio[inicio_ms:fin_ms]            
+            segmento = audio[inicio_ms:fin_ms]
             nombre_segmento = f"audio_{i+1}.wav"
             segmento.export(f"{ruta_dataset}/{nombre_segmento}", format="wav")
             
@@ -174,6 +174,7 @@ class AudioProcessing():
         self.app_window.update_progress_signal.emit(100)
             
     def generar_dataset(self):
+        self.eliminar_archivos_dataset()
         self.tecnicas_procesamiento = 5
         extraer_voz = self.app_window.opcion_seleccionada_voz.currentText()
         suprimir_ruido = self.app_window.slider_suprimir_ruido.value()
@@ -197,6 +198,19 @@ class AudioProcessing():
         self.app_window.etiqueta_progreso.setText("Completado")
         self.app_window.btnProcesar.setEnabled(True)
         self.app_window.btnSeleccionarRuta.setEnabled(True)
+    
+    def eliminar_archivos_dataset(self):
+        try:
+            ruta_carpeta = self.app_window.txt_ruta_carpeta.text()
+            ruta_outputs = os.path.join(ruta_carpeta, "outputs")
+            ruta_dataset = os.path.join(ruta_outputs, "dataset")
+            archivos = os.listdir(ruta_dataset)
+            archivos_a_eliminar = [archivo for archivo in archivos if any(archivo.lower().endswith(ext) for ext in [".wav"])]
+            for archivo in archivos_a_eliminar:
+                ruta_archivo = os.path.join(ruta_dataset, archivo)
+                os.remove(ruta_archivo)
+        except Exception as e:
+            print(f"No se pudieron eliminar los archivos: {e}")
         
     def procesar_audios(self):
         self.app_window.btnProcesar.setEnabled(False)

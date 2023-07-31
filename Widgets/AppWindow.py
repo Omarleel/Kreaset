@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QDesktopWidget, QMainWindow, QLabel, QLineEdit, QPushButton, QVBoxLayout, QFileDialog, QComboBox, QMessageBox, QWidget, QProgressBar
+from PyQt5.QtWidgets import QDesktopWidget, QSlider, QMainWindow, QLabel, QLineEdit, QPushButton, QVBoxLayout, QFileDialog, QComboBox, QMessageBox, QWidget, QProgressBar
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 
@@ -12,7 +12,7 @@ class AppWindow(QMainWindow):
         self.setWindowTitle("Kreaset (by Omarleel)")
         icono = QIcon('../icono.ico')
         app.setWindowIcon(icono)
-        self.setGeometry(0, 0, 580, 400)
+        self.setGeometry(0, 0, 580, 460)
         self.center_window()
         self.file_path = None
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowMaximizeButtonHint)
@@ -49,10 +49,21 @@ class AppWindow(QMainWindow):
         self.label4 = QLabel("<b>Suprimir ruido</b>")
         layout.addWidget(self.label4)
         
-        self.opcion_seleccionada_ruido = QComboBox()
-        self.opcion_seleccionada_ruido.addItems(["Si", "No"])
-        self.opcion_seleccionada_ruido.setCurrentText("No")
-        layout.addWidget(self.opcion_seleccionada_ruido)
+        # Crear el slider horizontal
+        self.slider_suprimir_ruido = QSlider(Qt.Horizontal)
+        self.slider_suprimir_ruido.setMinimum(0)
+        self.slider_suprimir_ruido.setMaximum(100)
+        self.slider_suprimir_ruido.setValue(0)  # Valor inicial al 0%
+        
+        # Etiqueta para mostrar el valor actual del slider en porcentaje
+        self.label = QLabel('0%')
+
+        # Conectar el cambio del slider con la función de actualización de la etiqueta
+        self.slider_suprimir_ruido.valueChanged.connect(self.update_label)
+
+        # Crear el layout vertical y agregar el slider y la etiqueta a él
+        layout.addWidget(self.slider_suprimir_ruido)
+        layout.addWidget(self.label)
         
         self.label5 = QLabel("<b>Extraer voz</b>")
         layout.addWidget(self.label5)
@@ -69,6 +80,14 @@ class AppWindow(QMainWindow):
         self.opcion_seleccionada_silencio.addItems(["Alta tolerancia", "Baja tolerancia"])
         self.opcion_seleccionada_silencio.setCurrentText("Alta tolerancia")
         layout.addWidget(self.opcion_seleccionada_silencio)
+        
+        self.label7 = QLabel("<b>Dividir audio</b>")
+        layout.addWidget(self.label7)
+        
+        self.opcion_seleccionada_dividir = QComboBox()
+        self.opcion_seleccionada_dividir.addItems(["5 segundos", "10 segundos", "15 segundos", "20 segundos"])
+        self.opcion_seleccionada_dividir.setCurrentText("15 segundos")
+        layout.addWidget(self.opcion_seleccionada_dividir)
         
         self.btnProcesar = QPushButton("Generar dataset", self)
         layout.addWidget(self.btnProcesar)
@@ -88,7 +107,11 @@ class AppWindow(QMainWindow):
         
         self.etiqueta_duracion_salida_audios = QLabel("-")
         layout.addWidget(self.etiqueta_duracion_salida_audios)
-        
+    
+    def update_label(self, value):
+        # Actualizar el texto de la etiqueta con el valor del slider en porcentaje
+        self.label.setText(f'{value}%')
+            
     def actualizar_progreso(self, value):
         self.barra_de_progreso.setValue(value)
                 
@@ -119,4 +142,5 @@ class AppWindow(QMainWindow):
             cantidad_audios = len(archivos_audio)
             self.etiqueta_cantidad_audios.setText(f"{cantidad_audios}")
 
+            self.audio_processing.audios_seleccionados = None
             self.audio_processing.calcular_duracion_total(ruta_carpeta, self.etiqueta_duracion_entrada_audios)

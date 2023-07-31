@@ -30,10 +30,12 @@ La interfaz de usuario de Kreaset se compone de los siguientes elementos:
 9. Cuadro desplegable "Si/No": Permite seleccionar "Si" o "No" para activar o desactivar la técnica de extracción de voz, respectivamente.
 10. Etiqueta de "Remover silencio": Permite seleccionar el nivel de tolerancia para eliminar silencios en los archivos de audio.
 11. Cuadro desplegable "Alta tolerancia/Baja tolerancia": Permite seleccionar el nivel de tolerancia para eliminar silencios, ya sea alta o baja.
-12. Botón "Generar dataset": Inicia el procesamiento de los archivos de audio seleccionados con las técnicas elegidas.
-13. Etiqueta de progreso: Muestra el estado actual del procesamiento, como "Sin procesar" o "Completado".
-14. Barra de progreso: Representa visualmente el progreso del procesamiento de los archivos de audio.
-15. Etiqueta de "Duración salida": Muestra la duración total de los archivos de audio procesados (después de aplicar las técnicas) en formato horas, minutos y segundos.
+12. Etiqueta de "Dividir audio": Permite seleccionar valores en segundos de los segmentos en los cuales al audio resultante será dividio.
+13. Cuadro desplegable "5 segundos/10 segundos/15 segundos/20 segundos": Permite seleccionar los segmentos de duración máxima en los cuales el audio será dividido.
+14. Botón "Generar dataset": Inicia el procesamiento de los archivos de audio seleccionados con las técnicas elegidas.
+15. Etiqueta de progreso: Muestra el estado actual del procesamiento, como "Sin procesar" o "Completado".
+16. Barra de progreso: Representa visualmente el progreso del procesamiento de los archivos de audio.
+17. Etiqueta de "Duración salida": Muestra la duración total de los archivos de audio procesados (después de aplicar las técnicas) en formato horas, minutos y segundos.
 
 ![Interfaz gráfica del programa](https://raw.githubusercontent.com/Omarleel/Kreaset/main/Assets/interfaz_grafica.jpg)
 

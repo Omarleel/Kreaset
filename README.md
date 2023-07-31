@@ -37,7 +37,7 @@ La interfaz de usuario de Kreaset se compone de los siguientes elementos:
 16. Barra de progreso: Representa visualmente el progreso del procesamiento de los archivos de audio.
 17. Etiqueta de "Duración salida": Muestra la duración total de los archivos de audio procesados (después de aplicar las técnicas) en formato horas, minutos y segundos.
 
-![Interfaz gráfica del programa](https://raw.githubusercontent.com/Omarleel/Kreaset/main/Assets/interfaz_grafica.jpg)
+![Interfaz gráfica del programa](https://raw.githubusercontent.com/Omarleel/Kreaset/main/Assets/interfaz_de_usuario.jpg)
 
 ## Procesamiento de audio
 Kreaset permite realizar las siguientes técnicas de procesamiento de audio:

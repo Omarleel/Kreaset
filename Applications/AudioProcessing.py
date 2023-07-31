@@ -22,7 +22,6 @@ class AudioProcessing():
         self.app_window = app_window
         
     def calcular_duracion_total(self, ruta_carpeta, lbl_duracion):
-        self.audios_seleccionados = None
         archivos = os.listdir(ruta_carpeta)
         archivos_audio = [archivo for archivo in archivos if archivo.lower().endswith((".mp3", ".wav", ".wma"))]
         duracion_total_ms = 0
@@ -34,6 +33,7 @@ class AudioProcessing():
                     self.audios_seleccionados = audio
                 else:
                     self.audios_seleccionados += audio
+                
             duracion_total_ms += len(audio)
 
         # Convertir la duración total a formato horas, minutos y segundos
@@ -72,16 +72,20 @@ class AudioProcessing():
 
         self.app_window.update_progress_signal.emit(self.app_window.barra_de_progreso.value() + self.app_window.barra_de_progreso.value())
 
-    def eliminar_ruido(self):
+    def eliminar_ruido(self, suprimir_ruido):
         self.app_window.etiqueta_progreso.setText("Suprimiendo ruido...")
         ruta_carpeta = self.app_window.txt_ruta_carpeta.text()
         ruta_outputs = os.path.join(ruta_carpeta, "outputs")
+        ruta_audio_sin_ruido = os.path.join(ruta_outputs, "audio_combinado_sin_ruido.wav")
+        sr = 44100
+        porcentaje_reduccion = float(suprimir_ruido/100)
         rate, data = wavfile.read(self.ruta_audio_procesar)
         orig_shape = data.shape
         data = np.reshape(data, (2, -1))
-        ruido_reducido = nr.reduce_noise(y=data, sr=rate, stationary=True)
-        ruta_audio_sin_ruido = os.path.join(ruta_outputs, "audio_combinado_sin_ruido.wav")
-        wavfile.write(ruta_audio_sin_ruido, rate, ruido_reducido.reshape(orig_shape))
+        
+        ruido_reducido = nr.reduce_noise(y=data, sr=sr, stationary=True, prop_decrease=porcentaje_reduccion)  
+        
+        wavfile.write(ruta_audio_sin_ruido, sr, ruido_reducido.reshape(orig_shape))
         os.remove(self.ruta_audio_procesar)
         self.ruta_audio_procesar = ruta_audio_sin_ruido
         
@@ -95,33 +99,24 @@ class AudioProcessing():
         fs, audio = aIO.read_audio_file(self.ruta_audio_procesar)
         segments = aS.silence_removal(audio, fs, 0.020, 0.020, smooth_window=0.5, weight=0.6, plot=False)
 
-        # Crear un nuevo audio combinando los segmentos sin silencios
         audio_combinado = AudioSegment.empty()
 
         for segment in segments:
             start, end = segment
             audio_segment = audio[int(start * fs):int(end * fs)]
 
-            # Convertir el arreglo NumPy a bytes usando io.BytesIO y scipy.wavfile.write
             bytes_io = io.BytesIO()
             wavfile.write(bytes_io, fs, audio_segment)
-
             bytes_io.seek(0)
-
-            # Crear el AudioSegment a partir de los bytes
             audio_segment = AudioSegment.from_file(bytes_io, format="wav")
-
             audio_combinado += audio_segment
 
-        # Guardar el nuevo audio sin silencios
         ruta_audio_sin_silencios = os.path.join(ruta_outputs, "audio_combinado_sin_silencios.wav")
         audio_combinado.export(ruta_audio_sin_silencios, format="wav")
 
-        # Eliminar el archivo de audio original
         os.remove(self.ruta_audio_procesar)
         self.ruta_audio_procesar = ruta_audio_sin_silencios
 
-        # Actualizar la barra de progreso
         self.app_window.update_progress_signal.emit(self.app_window.barra_de_progreso.value() + self.app_window.barra_de_progreso.value())
         
     def eliminar_silencios_intenso(self):
@@ -147,32 +142,30 @@ class AudioProcessing():
         
     def dividir_archivo_wav(self):
         self.app_window.etiqueta_progreso.setText("Generando dataset...")
-        duracion_maxima=15000
+        duracion_division_seleccionada = self.app_window.opcion_seleccionada_dividir.currentText()
+        if duracion_division_seleccionada == "5 segundos": 
+            duracion_maxima=5000
+        elif duracion_division_seleccionada == "10 segundos": 
+            duracion_maxima=10000
+        elif duracion_division_seleccionada == "15 segundos": 
+            duracion_maxima=15000
+        else:
+            duracion_maxima=20000  
         ruta_carpeta = self.app_window.txt_ruta_carpeta.text()
         ruta_outputs = os.path.join(ruta_carpeta, "outputs")
         ruta_dataset = os.path.join(ruta_outputs, "dataset")
         if not os.path.exists(ruta_dataset):    
             os.makedirs(ruta_dataset)   
         
-        # Cargar el archivo WAV
         audio = AudioSegment.from_wav(self.ruta_audio_procesar)
-        
-        # Duración máxima en milisegundos (15 segundos por defecto)
-        duracion_maxima_ms = duracion_maxima
-        
-        # Obtener la duración total del audio
-        duracion_total_ms = len(audio)
-        
-        # Número total de segmentos
+        duracion_maxima_ms = duracion_maxima      
+        duracion_total_ms = len(audio)   
         num_segmentos = (duracion_total_ms + duracion_maxima_ms - 1) // duracion_maxima_ms
         
         for i in range(num_segmentos):
             inicio_ms = i * duracion_maxima_ms
             fin_ms = min((i + 1) * duracion_maxima_ms, duracion_total_ms)
-            
-            # Extraer el segmento
-            segmento = audio[inicio_ms:fin_ms]
-            
+            segmento = audio[inicio_ms:fin_ms]            
             nombre_segmento = f"audio_{i+1}.wav"
             segmento.export(f"{ruta_dataset}/{nombre_segmento}", format="wav")
             
@@ -183,18 +176,18 @@ class AudioProcessing():
     def generar_dataset(self):
         self.tecnicas_procesamiento = 5
         extraer_voz = self.app_window.opcion_seleccionada_voz.currentText()
-        suprimir_ruido = self.app_window.opcion_seleccionada_ruido.currentText()
+        suprimir_ruido = self.app_window.slider_suprimir_ruido.value()
         eliminar_silencio = self.app_window.opcion_seleccionada_silencio.currentText()
         if extraer_voz == "No":
             self.tecnicas_procesamiento -= 1
-        if suprimir_ruido == "No":
+        if suprimir_ruido == 0:
             self.tecnicas_procesamiento -= 1
             
         self.combinar_audios()
         if extraer_voz == "Si": 
             self.extraer_voz()
-        if suprimir_ruido == "Si": 
-            self.eliminar_ruido()
+        if suprimir_ruido > 0: 
+            self.eliminar_ruido(suprimir_ruido)
         if eliminar_silencio == "Alta tolerancia":
             self.eliminar_silencios_suave()
         else:
@@ -202,8 +195,12 @@ class AudioProcessing():
         self.dividir_archivo_wav()
         
         self.app_window.etiqueta_progreso.setText("Completado")
+        self.app_window.btnProcesar.setEnabled(True)
+        self.app_window.btnSeleccionarRuta.setEnabled(True)
         
     def procesar_audios(self):
+        self.app_window.btnProcesar.setEnabled(False)
+        self.app_window.btnSeleccionarRuta.setEnabled(False)
         hilo_procesamiento = Thread(target=self.generar_dataset)
         hilo_procesamiento.start()
-        self.app_window.btnProcesar.setEnabled(False)
+        

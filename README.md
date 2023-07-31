@@ -9,7 +9,7 @@ Kreaset es una aplicación de procesamiento de audio desarrollada por mi persona
 - PyQt5
 - pydub
 - scipy
-- noisereduce
+- [noisereduce](https://github.com/timsainb/noisereduce)
 - pyAudioAnalysis
 - [Spleeter](https://github.com/deezer/spleeter)
 
@@ -25,7 +25,7 @@ La interfaz de usuario de Kreaset se compone de los siguientes elementos:
 4. Etiqueta de "Archivos de audio": Muestra la cantidad total de archivos de audio encontrados en el directorio seleccionado.
 5. Etiqueta de "Duración entrada": Muestra la duración total de los archivos de audio seleccionados en formato horas, minutos y segundos.
 6. Etiqueta de "Suprimir ruido": Permite seleccionar si se desea aplicar la técnica de supresión de ruido a los archivos de audio.
-7. Cuadro desplegable "Si/No": Permite seleccionar "Si" o "No" para activar o desactivar la técnica de supresión de ruido, respectivamente.
+7. Control deslizante "0% - 100%": Permite elegir la proporción para suprimir el ruido.
 8. Etiqueta de "Extraer voz": Permite seleccionar si se desea aplicar la técnica de extracción de voz a los archivos de audio.
 9. Cuadro desplegable "Si/No": Permite seleccionar "Si" o "No" para activar o desactivar la técnica de extracción de voz, respectivamente.
 10. Etiqueta de "Remover silencio": Permite seleccionar el nivel de tolerancia para eliminar silencios en los archivos de audio.
@@ -67,7 +67,7 @@ El proceso de procesamiento de audio se realiza en segundo plano utilizando hilo
 1. Ejecute el programa usando Python y se abrirá la ventana principal de Kreaset.
 2. Haga clic en el botón "Seleccionar" y seleccione el directorio que contiene los archivos de audio que desea procesar.
 3. Se mostrará la cantidad total de archivos de audio encontrados en el directorio seleccionado y la duración total de los archivos de audio.
-4. Seleccione las técnicas de procesamiento de audio que desee aplicar utilizando los cuadros desplegables.
+4. Seleccione las técnicas de procesamiento de audio que desee aplicar utilizando el control deslizante y los cuadros desplegables.
 5. Haga clic en el botón "Generar dataset" para iniciar el procesamiento de los archivos de audio con las técnicas seleccionadas.
 6. El progreso del procesamiento se muestra en la etiqueta y la barra de progreso.
 7. Una vez completado el procesamiento, se mostrará la etiqueta "Completado" y la duración total de los archivos de audio procesados en la etiqueta "Duración salida".
